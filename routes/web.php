@@ -38,5 +38,7 @@ Route::resource('ormas', OrmasController::class)->middleware('auth');
 Route::get('/ormas/{ormas}/resume', [OrmasController::class, 'resume'])->name('ormas.resume');
 Route::post('/ormas/{ormas}/submit-to-admin', [OrmasController::class, 'submitToAdmin'])->name('ormas.submitToAdmin');
 Route::delete('/ormas/{id}', [OrmasController::class, 'destroy'])->name('ormas.destroy');
+Route::post('/ormas/store', [OrmasController::class, 'store'])->name('ormas.store');
+
 
 require __DIR__.'/auth.php';

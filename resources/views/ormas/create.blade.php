@@ -37,6 +37,9 @@
                         <input type="text"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             id="nama_ormas" name="nama_ormas" value="{{ old('nama_ormas') }}" required>
+                        @error('nama_ormas')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="bentuk_organisasi" class="block text-sm font-medium text-gray-700">Bentuk
@@ -52,6 +55,9 @@
                                 </option>
                             @endforeach
                         </select>
+                        @error('bentuk_organisasi_id')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
@@ -69,6 +75,9 @@
                             </div>
                         @endforeach
                     </div>
+                    @error('bidang_id')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="row mb-4">
@@ -95,6 +104,9 @@
                             </button>
                             <div id="preview-{{ $field }}" class="preview-container" style="display: none;">
                             </div>
+                            @error($field)
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     @endforeach
                 </div>
@@ -124,6 +136,9 @@
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 id="nama_{{ strtolower($posisi) }}" name="nama_{{ strtolower($posisi) }}"
                                 value="{{ old('nama_' . strtolower($posisi)) }}" required>
+                            @error('nama_' . strtolower($posisi))
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
                             <label for="nik_{{ strtolower($posisi) }}" class="block text-sm font-medium text-gray-700">NIK
@@ -132,6 +147,9 @@
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 id="nik_{{ strtolower($posisi) }}" name="nik_{{ strtolower($posisi) }}"
                                 value="{{ old('nik_' . strtolower($posisi)) }}" required>
+                            @error('nama_' . strtolower($posisi))
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-6 mb-3">
@@ -151,6 +169,9 @@
                                 <div id="preview-ktp_{{ strtolower($posisi) }}" class="preview-container"
                                     style="display: none;"></div>
                             </div>
+                            @error('nama_' . strtolower($posisi))
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 @endforeach
@@ -174,12 +195,18 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             id="alamat_sekretariat" name="alamat_sekretariat" value="{{ old('alamat_sekretariat') }}"
                             required>
+                        @error('alamat_sekretariat')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="kontak_person" class="block text-sm font-medium text-gray-700">Kontak Person</label>
                         <input type="text"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             id="kontak_person" name="kontak_person" value="{{ old('kontak_person') }}" required>
+                        @error('kontak_person')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
