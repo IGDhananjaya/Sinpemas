@@ -72,14 +72,14 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                {{-- <div class="row mb-4">
                     @foreach ([
-            'surat_permohonan' => 'Surat Permohonan Pencatatan Keberadaan Ormas (PDF)',
-            'surat_penetapan' => 'Surat Penetapan (PDF)',
-            'sk_susunan_kepengurusan' => 'SK Susunan Kepengurusan (PDF)',
-            'plang_nama_sekretariat' => 'Plang Nama Sekretariat',
-            'surat_keterangan_domisili' => 'Surat Keterangan Domisili (PDF)',
-        ] as $field => $label)
+        'surat_permohonan' => 'Surat Permohonan Pencatatan Keberadaan Ormas (PDF)',
+        'surat_penetapan' => 'Surat Penetapan (PDF)',
+        'sk_susunan_kepengurusan' => 'SK Susunan Kepengurusan (PDF)',
+        'plang_nama_sekretariat' => 'Plang Nama Sekretariat',
+        'surat_keterangan_domisili' => 'Surat Keterangan Domisili (PDF)',
+    ] as $field => $label)
                         <div class="col-md-6 mb-3">
                             <label for="{{ $field }}">{{ $label }}</label>
                             <input type="file" class="form-control-file" id="{{ $field }}"
@@ -117,6 +117,58 @@
                     @endforeach
                 </div>
 
+                <div class="flex justify-between mt-4">
+                    <button type="button" class="bg-gray-300 text-gray-500 font-bold py-2 px-4 rounded cursor-not-allowed"
+                        onclick="prevStep(2)" disabled>Kembali</button>
+                    <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onclick="nextStep(1)">Selanjutnya</button>
+                </div>
+            </div> --}}
+
+                <div class="row mb-4">
+                    @foreach ([
+            'surat_permohonan' => 'Surat Permohonan Pencatatan Keberadaan Ormas (PDF)',
+            'surat_penetapan' => 'Surat Penetapan (PDF)',
+            'sk_susunan_kepengurusan' => 'SK Susunan Kepengurusan (PDF)',
+            'plang_nama_sekretariat' => 'Plang Nama Sekretariat',
+            'surat_keterangan_domisili' => 'Surat Keterangan Domisili (PDF)',
+        ] as $field => $label)
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ $field }}">{{ $label }}</label>
+                            <input type="file" class="form-control-file" id="{{ $field }}"
+                                name="{{ $field }}"
+                                accept="{{ in_array($field, ['plang_nama_sekretariat']) ? 'image/*' : 'application/pdf' }}">
+
+                            @if ($ormas->$field)
+                                <p>File saat ini: <a href="{{ asset('storage/' . $ormas->$field) }}"
+                                        target="_blank">{{ basename($ormas->$field) }}</a></p>
+
+                                <div id="existing-preview-{{ $field }}" class="preview-container">
+                                    @if (Str::endsWith($ormas->$field, ['.jpg', '.jpeg', '.png']))
+                                        <img src="{{ asset('storage/' . $ormas->$field) }}"
+                                            style="max-width: 80px; max-height: 100px;"
+                                            alt="{{ basename($ormas->$field) }}">
+                                    @elseif (Str::endsWith($ormas->$field, '.pdf'))
+                                        <embed src="{{ asset('storage/' . $ormas->$field) }}" type="application/pdf"
+                                            style="width: 100%; height: 200px;" />
+                                    @endif
+                                </div>
+                                <button type="button" class="btn btn-link"
+                                    id="toggle-existing-preview-{{ $field }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
+                                    </svg>
+                                </button>
+                            @endif
+
+                            <div id="preview-{{ $field }}" class="preview-container"></div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Buttons -->
                 <div class="flex justify-between mt-4">
                     <button type="button" class="bg-gray-300 text-gray-500 font-bold py-2 px-4 rounded cursor-not-allowed"
                         onclick="prevStep(2)" disabled>Kembali</button>
@@ -289,7 +341,7 @@
                 'toggle-existing-preview-ktp_{{ strtolower($posisi) }}');
         @endforeach
     </script>
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             @foreach ([
         'surat_permohonan' => 'Surat Permohonan Pencatatan Keberadaan Ormas (PDF)',
@@ -327,6 +379,22 @@
                         reader.readAsDataURL(file);
                     }
                 });
+            @endforeach
+        });
+    </script> --}}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @foreach (['surat_permohonan', 'surat_penetapan', 'sk_susunan_kepengurusan', 'plang_nama_sekretariat', 'surat_keterangan_domisili'] as $field)
+                document.getElementById('toggle-existing-preview-{{ $field }}').addEventListener('click',
+                    function() {
+                        const preview = document.getElementById('existing-preview-{{ $field }}');
+                        if (preview.style.display === 'none') {
+                            preview.style.display = 'block';
+                        } else {
+                            preview.style.display = 'none';
+                        }
+                    });
             @endforeach
         });
     </script>
