@@ -48,7 +48,7 @@ class Ormas extends Model
     // Definisi relasi bidang
     public function bidang()
     {
-        return $this->belongsToMany(Bidang::class, 'bidang_ormas', 'ormas_id', 'bidang_id');
+        return $this->belongsToMany(bidang::class, 'bidang_ormas', 'ormas_id', 'bidang_id');
     }
 
     public function bentukOrganisasi(): BelongsTo
