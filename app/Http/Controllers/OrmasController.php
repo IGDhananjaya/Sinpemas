@@ -246,7 +246,7 @@ class OrmasController extends Controller
         // $ormas = Ormas::with(['bidang', 'bentukOrganisasi'])->findOrFail($id);
         $ormas = Ormas::with(['bidang', 'bentukOrganisasi'])->findOrFail($id);
         $bentukOrganisasis = bentuk_organisasi::all(); // Ambil semua bentuk organisasi
-        $bidangs = Bidang::all(); // Ambil semua bidang
+        $bidangs = bidang::all(); // Ambil semua bidang
 
         return view('ormas.edit', compact('ormas', 'bentukOrganisasis', 'bidangs'));
     }
