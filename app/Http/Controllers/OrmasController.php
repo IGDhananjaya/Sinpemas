@@ -197,12 +197,22 @@ class OrmasController extends Controller
         ];
 
         // Simpan file dan buat nama file yang unik
+        // foreach ($fileFields as $field) {
+        //     if ($request->hasFile($field)) {
+        //         $originalName = $request->file($field)->getClientOriginalName();
+        //         // Tambahkan timestamp untuk membuat nama file menjadi unik
+        //         $uniqueName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . time() . '.' . $request->file($field)->getClientOriginalExtension();
+        //         // Simpan file dengan nama unik ke dalam folder 'ormas_files'
+        //         $validatedData[$field] = $request->file($field)->storeAs('ormas_files', $uniqueName, 'public');
+        //     }
+        // }
+
         foreach ($fileFields as $field) {
             if ($request->hasFile($field)) {
                 $originalName = $request->file($field)->getClientOriginalName();
-                // Tambahkan timestamp untuk membuat nama file menjadi unik
                 $uniqueName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . time() . '.' . $request->file($field)->getClientOriginalExtension();
-                // Simpan file dengan nama unik ke dalam folder 'ormas_files'
+                $filePath = storage_path('app/public/ormas_files/' . $uniqueName); // Gunakan storage_path()
+                \Log::info("Saving file to: " . $filePath); // Tambahkan log untuk debugging
                 $validatedData[$field] = $request->file($field)->storeAs('ormas_files', $uniqueName, 'public');
             }
         }
