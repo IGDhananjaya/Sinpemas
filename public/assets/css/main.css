@@ -854,6 +854,24 @@ section,
   color: var(--accent-color);
 }
 
+.about .section-title p {
+  text-align: justify;
+  margin-bottom: 30px;
+}
+
+.about .section-title ul {
+  text-align: justify;
+}
+
+.about .section-title ul li {
+  margin-bottom: 15px;
+}
+
+.about .section-title h2 {
+  text-align: center; /* Agar judul tetap rata tengah */
+}
+
+
 /*--------------------------------------------------------------
 # Stats Section
 --------------------------------------------------------------*/
